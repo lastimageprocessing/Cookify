@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en" class="{% block htmlClass %}app{% endblock %}" prefix="og: http://ogp.me/ns#" manifest="manifest.appcache">
+
+<head>
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
+	<!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+	{% block meta %}{% endblock %}
+	<meta name="description" content="social network, share, follow, tag, post, rate, chat" />
+	<meta name="author" content="Litet Li Mbeleg Perrin">
+	<meta name="theme-color" content="#0af" />
+	<meta name="apple-mobile-web-app-capable" content="yes">
+    <link rel="manifest" href="manifest.json"/>
+    <link rel="icon" type="image/x-icon" href="static/images/favicon.ico" />
+	<title>{% block title %}Cookify | Home{% endblock %}</title>
+	<!--style.twig-->
+	{% block stylesheets %}
+	<link rel="stylesheet" type="text/css" href="static/css/app.min.css">
+	{% endblock %}
+	<style>
+	.img-responsive{
+		width: 100%;
+		height: 100%;
+		object-fit: contain;
+	}
+	</style>
+</head>
+<body>
+	{% block body %}
+	{% endblock %}
+	<!-- First Register The ServiceWorker-->
+	<script>
+		if ('serviceWorker' in navigator) {
+		  // Delay registration until after the page has loaded, to ensure that our
+		  // precaching requests don't degrade the first visit experience.
+		  // See https://developers.google.com/web/fundamentals/instant-and-offline/service-worker/registration
+		  window.addEventListener('load', function() {
+		    // Your sw.js *must* be located at the top-level directory relative to your site.
+		    // It won't be able to control pages unless it's located at the same level or higher than them.
+		    // *Don't* register service worker file in, e.g., a scripts/ sub-directory!
+		    // See https://github.com/slightlyoff/ServiceWorker/issues/468
+		    navigator.serviceWorker.register('/sw.js').then(function(reg) {
+		      console.log('[ServiceWorker] registered and scope is ',reg.scope);
+		      // updatefound is fired if service-worker.js changes.
+		      reg.onupdatefound = function() {
+		        // The updatefound event implies that reg.installing is set; see
+		        // https://w3c.github.io/ServiceWorker/#service-worker-registration-updatefound-event
+		        var installingWorker = reg.installing;
+
+		        installingWorker.onstatechange = function() {
+		          switch (installingWorker.state) {
+		            case 'installed':
+		              if (navigator.serviceWorker.controller) {
+		                // At this point, the old content will have been purged and the fresh content will
+		                // have been added to the cache.
+		                // It's the perfect time to display a "New content is available; please refresh."
+		                // message in the page's interface.
+		                console.log('New or updated content is available.');
+		              } else {
+		                // At this point, everything has been precached.
+		                // It's the perfect time to display a "Content is cached for offline use." message.
+		                console.log('Content is now available offline!');
+		              }
+		              break;
+
+		            case 'redundant':
+		              console.error('The installing service worker became redundant.');
+		              break;
+		          }
+		        };
+		      };
+		    }).catch(function(e) {
+		      console.error('Error during service worker registration:', e);
+		    });
+		  });
+		}
+	</script>
+	<!-- Placed at the end of the document so the pages load faster -->
+	<!-- Bootstrap core JavaScript -->
+	<!-- javscript.twig-->
+	{% block javascripts %}
+	<script src="static/js/app.min.js"></script>
+	{% endblock %}
+	<script>
+		$(document).ready(function(){
+			$('.routable').each(function(i, elmt){
+				$(elmt).click(function(e){
+					e.preventDefault();
+					e.stopPropagation();
+					let content;
+					if($(this).attr('href')){
+						console.log('Loading ' + $(this).attr('href'));
+						$.ajax({
+							type: 'GET',
+							url: $(this).attr('href'),
+							data: $(this).serialize(),
+							success: function(response){
+								content = response;
+							},
+							complete: function(){
+								$(document.body).parent().html(content);
+							}
+						});
+					}
+				});
+			});
+		});
+	</script>
+</body>
+
+</html>

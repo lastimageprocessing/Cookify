@@ -1,0 +1,13 @@
+CACHE MANIFEST
+# -v{%VERSION%} {%DATE%}
+
+CACHE:
+/
+/manifest.json
+/static/css/app.min.css
+/static/js/app.min.js
+/static/images/favicon.ico
+/static/images/logos/logo64x64.png
+/static/images/logos/logo128x128.png
+/static/images/logos/logo256x256.png
+/static/images/logos/logo512x512.png

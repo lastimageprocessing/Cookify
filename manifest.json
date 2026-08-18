@@ -1,0 +1,27 @@
+{
+    "name": "Cookify",
+    "short_name": "Cookify",
+    "start_url": "/",
+    "scope": "/",
+    "display": "standalone",
+	"orientation": "portrait",
+    "theme-color": "#eee",
+    "background_color": "#eee",
+    "icons": [{
+        "src": "/static/images/logos/logo64x64.png",
+        "sizes": "64x64",
+        "type": "image/png"
+    },{
+        "src": "/static/images/logos/logo128x128.png",
+        "sizes": "128x128",
+        "type": "image/png"
+    },{
+        "src": "/static/images/logos/logo256x256.png",
+        "sizes": "256x256",
+        "type": "image/png"
+    },{
+        "src": "/static/images/logos/logo512x512.png",
+        "sizes": "512x512",
+        "type": "image/png"
+    }]
+}

@@ -1,0 +1,13 @@
+CACHE MANIFEST
+# -v1.0.33 Fri Dec 29 2017 12:26:48 GMT+0100 (Paris, Madrid)
+
+CACHE:
+/
+/manifest.json
+/static/css/app.min.css
+/static/js/app.min.js
+/static/images/favicon.ico
+/static/images/logos/logo64x64.png
+/static/images/logos/logo128x128.png
+/static/images/logos/logo256x256.png
+/static/images/logos/logo512x512.png

@@ -1,0 +1,26 @@
+{
+  "name": "cookify",
+  "version": "1.0.35",
+  "description": "A Social NetWork For Cookers",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon index.js",
+    "clean-static": "rm -rf static",
+    "make-static": "mkdirp static",
+    "serve": "nodemon -e twig,js,css,json index.js",
+    "dev": "npm run build && npm run serve",
+    "build": "npm run clean-static && npm run make-static && npm version patch && gulp",
+    "build-resource-list": "node build/build-resource-list.js",
+    "release": "npm version patch && npm run build"
+  },
+  "keywords": [
+    "social",
+    "network",
+    "cook",
+    "eat",
+    "hungry",
+    "meals"
+  ],
+  "author": "Litet Li Mbeleg Perrin",
+  "license": "MIT"
+}
